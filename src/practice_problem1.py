@@ -163,18 +163,18 @@ class Box(object):
         # --------------------------------------------------------------
 
         if len(self.contents) + len(additional_contents) <= self.volume:
-            self.contents = '{}{}'.format(self.contents, additional_contents)
+            self.contents += additional_contents
             return ''
         else:
             add = ''
             for k in range(len(additional_contents) + len(self.contents) - self.volume - 1):
-                add += '{}'.format(additional_contents[k])
+                add += str(additional_contents[k])
 
             remove = ''
             for k in range(self.volume + 1 - len(self.contents)):
-                remove += '{}'.format(additional_contents[k + len(additional_contents)
-                                                          + len(self.contents) - self.volume - 1])
-            self.contents = '{}{}'.format(self.contents, add)
+                remove += str(additional_contents[k + len(additional_contents)
+                                                    + len(self.contents) - self.volume - 1])
+            self.contents += add
             return remove
 
     def double(self):
