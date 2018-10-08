@@ -41,7 +41,7 @@ def main():
 
     run_test_init()
     run_test_append_string()
-#     run_test_double()
+    run_test_double()
 #     run_test_shrink()
 #     run_test_double_then_shrink()
 #     run_test_reset()
@@ -167,13 +167,14 @@ class Box(object):
             return ''
         else:
             add = ''
-            for k in range(len(additional_contents) + len(self.contents) - self.volume - 1):
+            for k in range(self.volume - len(self.contents)):
                 add += str(additional_contents[k])
 
             remove = ''
-            for k in range(self.volume + 1 - len(self.contents)):
-                remove += str(additional_contents[k + len(additional_contents)
-                                                    + len(self.contents) - self.volume - 1])
+            for k in range(len(additional_contents) - 1,
+                           self.volume - len(self.contents) - 1,
+                           -1):
+                remove = str(additional_contents[k]) + remove
             self.contents += add
             return remove
 
@@ -198,7 +199,7 @@ class Box(object):
 
           b2 = Box('Robot Fun', 13)
           s = b2.double()
-          #   b2.contents is now 'Robot FunRobo'
+          #   b2.contents is now 'Robot FunRobot'
           #   b2.volume is still 13
           #   s is 't Fun'   [this is the part of the doubled contents
           #                  that did NOT fit in this Box]
@@ -211,7 +212,7 @@ class Box(object):
           #                       contents that did NOT fit]
         """
         # --------------------------------------------------------------
-        # TODO: 4. Implement and test this function.
+        # 4: DONE Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -223,6 +224,9 @@ class Box(object):
         # FOR FULL CREDIT, YOUR SOLUTION MUST BE NO MORE THAN
         #    ** TWO **   LINES OF CODE.
         ################################################################
+
+        clip = self.append_string(self.contents)
+        return clip
 
     def shrink(self, new_volume):
         """
